@@ -3,6 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
 import * as THREE from "three";
+import { useQualityTier } from "@/lib/useQualityTier";
 
 type Props = {
   children: ReactNode;
@@ -10,13 +11,21 @@ type Props = {
   frameloop?: "always" | "demand";
 };
 
-export default function SceneMount({ children, className, frameloop = "always" }: Props) {
+export default function SceneMount({ children, className, frameloop }: Props) {
+  const q = useQualityTier();
+
+  const effectiveFrameLoop = frameloop ?? (q.tier === "low" ? "demand" : "always");
+  const effectiveDpr = q.dpr;
+
+  // Conservative exposure on low tier to reduce harsh highlights
+  const exposure = q.tier === "high" ? 1.05 : q.tier === "mid" ? 1.0 : 0.95;
+
   return (
     <div className={className}>
       <Canvas
-        shadows
-        frameloop={frameloop}
-        dpr={[1, 1.75]}
+        shadows={q.shadows}
+        frameloop={effectiveFrameLoop}
+        dpr={effectiveDpr}
         gl={{
           antialias: true,
           alpha: true,
@@ -28,10 +37,10 @@ export default function SceneMount({ children, className, frameloop = "always" }
           // Professional color management
           gl.outputColorSpace = THREE.SRGBColorSpace;
           gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 1.05;
+          gl.toneMappingExposure = exposure;
 
-          // Cleaner shadows
-          gl.shadowMap.enabled = true;
+          // Cleaner shadows (only if enabled)
+          gl.shadowMap.enabled = q.shadows;
           gl.shadowMap.type = THREE.PCFSoftShadowMap;
         }}
       >

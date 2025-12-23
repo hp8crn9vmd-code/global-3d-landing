@@ -1,17 +1,36 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-
-const SceneMount = dynamic(() => import("@/components/SceneMount"), { ssr: false });
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
+  minHeight?: number;
+  label?: string;
   className?: string;
-  rootMargin?: string; // e.g. "200px"
 };
 
-export default function LazyScene({ children, className, rootMargin = "220px" }: Props) {
+function Skeleton({ label }: { label?: string }) {
+  return (
+    <div className="card-soft card-pad">
+      <p className="eyebrow">{label ?? "LOADING"}</p>
+      <div className="mt-4 space-y-3">
+        <div className="h-3 w-2/3 rounded bg-white/10" />
+        <div className="h-3 w-5/6 rounded bg-white/10" />
+        <div className="h-3 w-1/2 rounded bg-white/10" />
+      </div>
+      <p className="mt-5 text-sm text-white/60 leading-6">
+        Preparing the scene… optimizing for device capability and motion preferences.
+      </p>
+    </div>
+  );
+}
+
+export default function LazyScene({
+  children,
+  minHeight = 380,
+  label,
+  className,
+}: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [ready, setReady] = useState(false);
 
@@ -21,21 +40,22 @@ export default function LazyScene({ children, className, rootMargin = "220px" }:
 
     const io = new IntersectionObserver(
       (entries) => {
-        if (entries[0]?.isIntersecting) {
+        const hit = entries.some((e) => e.isIntersecting);
+        if (hit) {
           setReady(true);
           io.disconnect();
         }
       },
-      { root: null, rootMargin, threshold: 0.01 }
+      { root: null, threshold: 0.15, rootMargin: "120px" }
     );
 
     io.observe(el);
     return () => io.disconnect();
-  }, [rootMargin]);
+  }, []);
 
   return (
-    <div ref={ref} className={className}>
-      {ready ? <SceneMount className="h-full w-full">{children}</SceneMount> : null}
+    <div ref={ref} className={className} style={{ minHeight }}>
+      {ready ? children : <Skeleton label={label} />}
     </div>
   );
 }

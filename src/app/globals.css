@@ -113,3 +113,132 @@ header {
 .card-elevate {
   box-shadow: 0 18px 60px rgba(0,0,0,0.45);
 }
+
+/* =========================================================
+   ENTERPRISE UI SYSTEM (Tokens + Components)
+   ========================================================= */
+
+:root{
+  /* Surfaces */
+  --surface-0: rgba(0,0,0,0);
+  --surface-1: rgba(255,255,255,0.04);
+  --surface-2: rgba(255,255,255,0.06);
+  --surface-3: rgba(0,0,0,0.35);
+
+  /* Borders */
+  --border-1: rgba(255,255,255,0.10);
+  --border-2: rgba(255,255,255,0.16);
+
+  /* Text */
+  --text-1: rgba(255,255,255,0.95);
+  --text-2: rgba(255,255,255,0.70);
+  --text-3: rgba(255,255,255,0.55);
+
+  /* Radius */
+  --r-sm: 12px;
+  --r-md: 16px;
+  --r-lg: 22px;
+
+  /* Shadow */
+  --shadow-1: 0 18px 60px rgba(0,0,0,0.45);
+  --shadow-2: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Containers */
+.container-enterprise{
+  margin-left:auto;
+  margin-right:auto;
+  max-width:72rem; /* ~ max-w-6xl */
+  padding-left:1.5rem;
+  padding-right:1.5rem;
+}
+.section-enterprise{
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--border-1);
+}
+.section-pad{
+  padding-top:5rem;
+  padding-bottom:5rem;
+}
+@media (min-width:768px){
+  .section-pad{
+    padding-top:7rem;
+    padding-bottom:7rem;
+  }
+}
+
+/* Eyebrow label */
+.eyebrow{
+  font-size:0.75rem;
+  letter-spacing:0.28em;
+  color:var(--text-2);
+}
+
+/* Cards */
+.card{
+  border-radius:var(--r-lg);
+  border:1px solid var(--border-1);
+  background:var(--surface-1);
+}
+.card-soft{
+  border-radius:var(--r-lg);
+  border:1px solid var(--border-1);
+  background:var(--surface-3);
+}
+.card-pad{
+  padding:1.5rem;
+}
+@media (min-width:768px){
+  .card-pad{
+    padding:1.75rem;
+  }
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:9999px;
+  padding:0.65rem 1.25rem;
+  font-size:0.875rem;
+  font-weight:600;
+  transition:transform 180ms ease, opacity 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  will-change:transform;
+}
+.btn:active{ transform: translateY(0.5px); }
+
+.btn-primary{
+  background:rgba(255,255,255,0.95);
+  color:#000;
+}
+.btn-primary:hover{ opacity:0.92; }
+
+.btn-secondary{
+  border:1px solid var(--border-2);
+  color:var(--text-1);
+  background:transparent;
+}
+.btn-secondary:hover{ border-color: rgba(255,255,255,0.32); }
+
+.btn-ghost{
+  border:1px solid var(--border-1);
+  color:var(--text-2);
+  background:rgba(255,255,255,0.03);
+}
+.btn-ghost:hover{
+  border-color: rgba(255,255,255,0.22);
+  color: var(--text-1);
+}
+
+/* Chips/Tags */
+.chip{
+  display:inline-flex;
+  align-items:center;
+  border-radius:9999px;
+  padding:0.25rem 0.75rem;
+  font-size:0.75rem;
+  border:1px solid var(--border-1);
+  color:var(--text-2);
+}

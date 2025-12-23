@@ -30,7 +30,7 @@ export default function HomeClient() {
 
           <a
             href="#contact"
-            className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:opacity-90"
+            className="btn btn-primary"
           >
             {COPY.contact.primaryCta}
           </a>
@@ -41,7 +41,7 @@ export default function HomeClient() {
         {/* Subtle grid overlay (enterprise feel) */}
         <div className="pointer-events-none absolute inset-0 hero-grid-overlay" />
         <div className="mx-auto max-w-6xl px-6 pt-24 pb-16">
-          <p className="text-xs tracking-[0.28em] text-white/70">
+          <p className="eyebrow">
             {COPY.hero.eyebrow}
           </p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
@@ -78,18 +78,18 @@ export default function HomeClient() {
       
       {/* OUTCOMES + SOCIAL PROOF */}
       <section className="relative border-b border-white/10">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="container-enterprise section-pad">
           <div className="grid gap-12 md:grid-cols-2 md:items-start">
             {/* Outcomes */}
             <div>
-              <p className="text-xs tracking-[0.28em] text-white/70">OUTCOMES</p>
+              <p className="eyebrow">OUTCOMES</p>
               <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
                 {COPY.outcomes.title}
               </h2>
 
               <div className="mt-8 grid gap-4">
                 {COPY.outcomes.items.map((it) => (
-                  <div key={it.title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                  <div key={it.title} className="card card-pad">
                     <p className="text-base font-semibold">{it.title}</p>
                     <p className="mt-2 text-sm text-white/70 leading-6">{it.body}</p>
                   </div>
@@ -98,8 +98,8 @@ export default function HomeClient() {
             </div>
 
             {/* Social proof */}
-            <div className="rounded-2xl border border-white/10 bg-black/30 p-7">
-              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.socialProof.eyebrow}</p>
+            <div className="card-soft card-pad">
+              <p className="eyebrow">{COPY.socialProof.eyebrow}</p>
               <div className="mt-4 grid gap-4">
                 {COPY.socialProof.metrics.map((m) => (
                   <div key={m.label} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-5 py-4">
@@ -115,13 +115,13 @@ export default function HomeClient() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="#nexus"
-                  className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black hover:opacity-90"
+                  className="btn btn-primary"
                 >
                   {COPY.hero.primaryCta}
                 </a>
                 <a
                   href="#orbital"
-                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white/90 hover:border-white/40"
+                  className="btn btn-secondary"
                 >
                   {COPY.hero.secondaryCta}
                 </a>
@@ -133,10 +133,10 @@ export default function HomeClient() {
 
 {/* SECTION 2: NEXUS ENGINE */}
       <section id="nexus" className="relative overflow-hidden border-b border-white/10">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="container-enterprise section-pad">
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <div>
-              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.nexus.eyebrow}</p>
+              <p className="eyebrow">{COPY.nexus.eyebrow}</p>
               <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{COPY.nexus.title}</h2>
               <p className="mt-4 text-white/70 leading-7">
                 {COPY.nexus.body}
@@ -156,10 +156,10 @@ export default function HomeClient() {
 
       {/* {COPY.libraries.eyebrow} */}
       <section className="relative overflow-hidden border-b border-white/10">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="container-enterprise section-pad">
           <div className="flex flex-col gap-10">
             <div>
-              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.libraries.eyebrow}</p>
+              <p className="eyebrow">{COPY.libraries.eyebrow}</p>
               <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
                 {COPY.libraries.title}
               </h2>
@@ -170,16 +170,16 @@ export default function HomeClient() {
 
             <div className="grid gap-6 lg:grid-cols-2">
               {/* 3D */}
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
+              <div className="card card-pad">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-semibold">{COPY.libraries.threeD.title}</h3>
-                  <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
+                  <span className="chip">
                     {COPY.libraries.threeD.chips.join(" • ")}
                   </span>
                 </div>
 
                 <div className="mt-6 grid gap-4">
-                  <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+                  <div className="card-soft card-pad">
                     <div className="flex items-center justify-between">
                       <p className="font-medium">{COPY.libraries.threeD.cards[0].name}</p>
                       <span className="text-xs text-white/60">Core renderer</span>
@@ -189,7 +189,7 @@ export default function HomeClient() {
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+                  <div className="card-soft card-pad">
                     <div className="flex items-center justify-between">
                       <p className="font-medium">{COPY.libraries.threeD.cards[1].name}</p>
                       <span className="text-xs text-white/60">Declarative scene graph</span>
@@ -199,7 +199,7 @@ export default function HomeClient() {
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+                  <div className="card-soft card-pad">
                     <div className="flex items-center justify-between">
                       <p className="font-medium">{COPY.libraries.threeD.cards[2].name}</p>
                       <span className="text-xs text-white/60">Production helpers</span>
@@ -211,14 +211,14 @@ export default function HomeClient() {
 
                   <div className="flex flex-wrap gap-2 pt-2 text-xs text-white/60">
                     {COPY.libraries.twoD.tags.map((t) => (
-                      <span key={t} className="rounded-full border border-white/10 px-3 py-1">{t}</span>
+                      <span key={t} className="chip">{t}</span>
                     ))}
                   </div>
 
                   <div className="pt-3">
                     <a
                       href="#nexus"
-                      className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:opacity-90"
+                      className="btn btn-primary"
                     >
                       See product realism (Nexus)
                     </a>
@@ -227,16 +227,16 @@ export default function HomeClient() {
               </div>
 
               {/* 2D */}
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
+              <div className="card card-pad">
                 <div className="flex items-center justify-between">
                   <h3 className="text-xl font-semibold">{COPY.libraries.twoD.title}</h3>
-                  <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
+                  <span className="chip">
                     {COPY.libraries.twoD.chips.join(" • ")}
                   </span>
                 </div>
 
                 <div className="mt-6 grid gap-4">
-                  <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+                  <div className="card-soft card-pad">
                     <div className="flex items-center justify-between">
                       <p className="font-medium">{COPY.libraries.twoD.cards[0].name}</p>
                       <span className="text-xs text-white/60">2D WebGL renderer</span>
@@ -246,7 +246,7 @@ export default function HomeClient() {
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+                  <div className="card-soft card-pad">
                     <div className="flex items-center justify-between">
                       <p className="font-medium">{COPY.libraries.twoD.cards[1].name}</p>
                       <span className="text-xs text-white/60">2D game framework</span>
@@ -256,7 +256,7 @@ export default function HomeClient() {
                     </p>
                   </div>
 
-                  <div className="rounded-xl border border-white/10 bg-black/30 p-5">
+                  <div className="card-soft card-pad">
                     <div className="flex items-center justify-between">
                       <p className="font-medium">{COPY.libraries.twoD.cards[2].name}</p>
                       <span className="text-xs text-white/60">Native drawing</span>
@@ -268,14 +268,14 @@ export default function HomeClient() {
 
                   <div className="flex flex-wrap gap-2 pt-2 text-xs text-white/60">
                     {COPY.libraries.threeD.tags.map((t) => (
-                      <span key={t} className="rounded-full border border-white/10 px-3 py-1">{t}</span>
+                      <span key={t} className="chip">{t}</span>
                     ))}
                   </div>
 
                   <div className="pt-3">
                     <a
                       href="#orbital"
-                      className="inline-flex items-center justify-center rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white/90 transition hover:border-white/40"
+                      className="btn btn-secondary"
                     >
                       See architectural depth (Orbital)
                     </a>
@@ -285,7 +285,7 @@ export default function HomeClient() {
             </div>
 
             {/* Practical proof line */}
-            <div className="rounded-2xl border border-white/10 bg-black/30 p-7">
+            <div className="card-soft card-pad">
               <div className="grid gap-6 md:grid-cols-3">
                 <div>
                   <p className="text-sm font-medium">Proof of craft</p>
@@ -313,7 +313,7 @@ export default function HomeClient() {
 
       {/* SECTION 3: ORBITAL CHAMBER */}
       <section id="orbital" className="relative overflow-hidden">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="container-enterprise section-pad">
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             {/* 3D Mount Point (Orbital) */}
             <div className="order-2 relative h-[420px] rounded-2xl border border-white/10 bg-white/5 overflow-hidden md:order-1">
@@ -323,7 +323,7 @@ export default function HomeClient() {
             </div>
 
             <div className="order-1 md:order-2">
-              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.orbital.eyebrow}</p>
+              <p className="eyebrow">{COPY.orbital.eyebrow}</p>
               <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{COPY.orbital.title}</h2>
               <p className="mt-4 text-white/70 leading-7">
                 {COPY.orbital.body}
@@ -339,13 +339,13 @@ export default function HomeClient() {
           
       {/* TECHNICAL DECISIONS */}
       <section className="relative border-t border-white/10">
-        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
-          <p className="text-xs tracking-[0.28em] text-white/70">{COPY.technical.eyebrow}</p>
+        <div className="container-enterprise section-pad">
+          <p className="eyebrow">{COPY.technical.eyebrow}</p>
           <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{COPY.technical.title}</h2>
 
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {COPY.technical.bullets.map((b, i) => (
-              <div key={i} className="rounded-2xl border border-white/10 bg-white/5 p-6">
+              <div key={i} className="card card-pad">
                 <p className="text-sm text-white/70 leading-6">{b}</p>
               </div>
             ))}
