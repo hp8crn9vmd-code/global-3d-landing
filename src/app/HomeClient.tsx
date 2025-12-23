@@ -72,6 +72,7 @@ export default function HomeClient() {
           <SceneMount className="h-full w-full">
             <AetherCore />
           </SceneMount>
+          
         </div>
       </section>
 
@@ -146,7 +147,9 @@ export default function HomeClient() {
             {/* 3D Mount Point (Nexus) */}
             <div className="relative h-[380px] rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
               <LazyScene className="absolute inset-0">
-                <NexusEngine />
+                <SceneMount className="absolute inset-0">
+                  <NexusEngine />
+                </SceneMount>
               </LazyScene>
             </div>
           </div>
@@ -318,7 +321,9 @@ export default function HomeClient() {
             {/* 3D Mount Point (Orbital) */}
             <div className="order-2 relative h-[420px] rounded-2xl border border-white/10 bg-white/5 overflow-hidden md:order-1">
               <LazyScene className="absolute inset-0">
-                <OrbitalChamber />
+                <SceneMount className="absolute inset-0">
+                  <OrbitalChamber />
+                </SceneMount>
               </LazyScene>
             </div>
 
