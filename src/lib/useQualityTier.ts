@@ -4,46 +4,61 @@ import { useEffect, useMemo, useState } from "react";
 
 export type QualityTier = "low" | "mid" | "high";
 
+function clamp(n: number, a: number, b: number) {
+  return Math.max(a, Math.min(b, n));
+}
+
+function computeTierClient(): { tier: QualityTier; reason: string } {
+  const nav: any = window.navigator;
+
+  const cores = typeof nav?.hardwareConcurrency === "number" ? nav.hardwareConcurrency : 4;
+  const mem = typeof nav?.deviceMemory === "number" ? nav.deviceMemory : 4;
+  const dpr = typeof window.devicePixelRatio === "number" ? window.devicePixelRatio : 1;
+  const reducedMotion =
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+
+  // Heuristics (stable + conservative)
+  // Low: reduced motion OR very low memory/cores OR very high DPR on constrained devices
+  if (reducedMotion) return { tier: "low", reason: "prefers-reduced-motion" };
+  if (mem <= 2 || cores <= 2) return { tier: "low", reason: "low device memory/cores" };
+  if (mem <= 4 && cores <= 4 && dpr >= 2) return { tier: "mid", reason: "balanced constraints" };
+
+  // Mid: typical laptops/phones
+  if (mem <= 6 || cores <= 6) return { tier: "mid", reason: "mid device" };
+
+  // High: strong devices
+  return { tier: "high", reason: "high device" };
+}
+
 export function useQualityTier() {
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // ✅ SSR-safe default. Will be corrected in useEffect on client.
+  const [tier, setTier] = useState<QualityTier>("mid");
+  const [reason, setReason] = useState<string>("ssr-default");
 
   useEffect(() => {
-    const mq = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    const updateMotion = () => setReducedMotion(Boolean(mq?.matches));
-    updateMotion();
-    mq?.addEventListener?.("change", updateMotion);
-    return () => mq?.removeEventListener?.("change", updateMotion);
-  }, []);
+    // ✅ window is available here
+    const res = computeTierClient();
+    setTier(res.tier);
+    setReason(res.reason);
 
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth || 1024;
-      setIsMobile(w < 768);
+    // Update on resize / DPR changes (roughly)
+    let raf = 0;
+    const onResize = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        const r = computeTierClient();
+        setTier(r.tier);
+        setReason(r.reason);
+      });
     };
-    update();
-    window.addEventListener("resize", update, { passive: true });
-    return () => window.removeEventListener("resize", update);
+
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", onResize);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
   }, []);
 
-  const tier = useMemo<QualityTier>(() => {
-    // Conservative: mobile OR reduced motion => low
-    if (reducedMotion || isMobile) return "low";
-
-    const dpr = window.devicePixelRatio || 1;
-    if (dpr >= 2) return "high";
-    return "mid";
-  }, [reducedMotion, isMobile]);
-
-  const settings = useMemo(() => {
-    if (tier === "low") {
-      return { tier, dpr: 1, frameloop: "demand" as const, shadows: false };
-    }
-    if (tier === "mid") {
-      return { tier, dpr: 1.5, frameloop: "always" as const, shadows: true };
-    }
-    return { tier, dpr: 1.75, frameloop: "always" as const, shadows: true };
-  }, [tier]);
-
-  return { ...settings, reducedMotion, isMobile };
+  return useMemo(() => ({ tier, reason }), [tier, reason]);
 }

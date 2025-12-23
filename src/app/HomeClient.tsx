@@ -1,4 +1,6 @@
 "use client";
+import PixiHUD from "@/components/PixiHUD";
+import PerfBadge from "@/components/PerfBadge";
 
 import dynamic from "next/dynamic";
 import { COPY } from "@/content/copy";
@@ -68,11 +70,19 @@ export default function HomeClient() {
         </div>
 
         {/* 3D Mount Point (Hero) */}
-        <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0">
+          <PixiHUD />
+          <div className="absolute inset-0">
+          <div className="pointer-events-none absolute inset-0">
           <SceneMount className="h-full w-full">
             <AetherCore />
           </SceneMount>
           
+        </div>
+        <div className="hidden md:block">
+          <PerfBadge />
+        </div>
+        </div>
         </div>
       </section>
 
