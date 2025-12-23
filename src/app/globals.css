@@ -90,3 +90,26 @@ a {
   outline: 2px solid rgba(255,255,255,0.35);
   outline-offset: 3px;
 }
+
+/* ---------- World-class Polish ---------- */
+html {
+  scroll-behavior: smooth;
+}
+
+a, button {
+  transition: transform 180ms ease, opacity 180ms ease, border-color 180ms ease;
+}
+
+a:active, button:active {
+  transform: translateY(0.5px);
+}
+
+/* Premium glass feel on sticky header */
+header {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+/* Subtle elevation for card-like containers */
+.card-elevate {
+  box-shadow: 0 18px 60px rgba(0,0,0,0.45);
+}

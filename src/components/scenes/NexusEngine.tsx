@@ -1,6 +1,6 @@
 "use client";
 
-import { ContactShadows } from "@react-three/drei";
+import { ContactShadows, RoundedBox } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import type { Group, Mesh } from "three";
@@ -18,16 +18,20 @@ function Engine() {
   return (
     <group ref={g} position={[0, -0.05, 0]}>
       {/* Base body */}
-      <mesh castShadow receiveShadow>
-        <roundedBoxGeometry args={[2.2, 0.65, 1.25, 6, 0.14]} />
+      <RoundedBox args={[2.2, 0.65, 1.25]} radius={0.14} smoothness={6} castShadow receiveShadow>
         <meshStandardMaterial color="#0f0f10" roughness={0.35} metalness={0.75} />
-      </mesh>
+      </RoundedBox>
 
       {/* Top plate */}
-      <mesh position={[0, 0.42, 0]} castShadow>
-        <roundedBoxGeometry args={[1.85, 0.18, 0.95, 6, 0.12]} />
+      <RoundedBox
+        args={[1.85, 0.18, 0.95]}
+        radius={0.12}
+        smoothness={6}
+        position={[0, 0.42, 0]}
+        castShadow
+      >
         <meshStandardMaterial color="#151518" roughness={0.25} metalness={0.85} />
-      </mesh>
+      </RoundedBox>
 
       {/* Accent ring */}
       <mesh ref={ring} position={[0, 0.48, 0]}>
@@ -54,13 +58,7 @@ export default function NexusEngine() {
 
       <Engine />
 
-      <ContactShadows
-        position={[0, -0.65, 0]}
-        opacity={0.35}
-        scale={6}
-        blur={2.6}
-        far={3}
-      />
+      <ContactShadows position={[0, -0.65, 0]} opacity={0.35} scale={6} blur={2.6} far={3} />
     </>
   );
 }
