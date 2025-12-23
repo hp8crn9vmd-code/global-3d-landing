@@ -2,6 +2,7 @@
 
 import { Canvas } from "@react-three/fiber";
 import type { ReactNode } from "react";
+import * as THREE from "three";
 
 type Props = {
   children: ReactNode;
@@ -23,6 +24,16 @@ export default function SceneMount({ children, className, frameloop = "always" }
           preserveDrawingBuffer: false,
         }}
         camera={{ position: [0, 0.2, 5], fov: 45, near: 0.1, far: 100 }}
+        onCreated={({ gl }) => {
+          // Professional color management
+          gl.outputColorSpace = THREE.SRGBColorSpace;
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 1.05;
+
+          // Cleaner shadows
+          gl.shadowMap.enabled = true;
+          gl.shadowMap.type = THREE.PCFSoftShadowMap;
+        }}
       >
         {children}
       </Canvas>
