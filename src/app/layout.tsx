@@ -29,6 +29,49 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <RuntimeGuard />
+        <div
+          id="__early_error"
+          style={{
+            display: "none",
+            position: "fixed",
+            left: 16,
+            right: 16,
+            top: 16,
+            zIndex: 99999,
+            padding: "14px 16px",
+            borderRadius: 16,
+            border: "1px solid rgba(255,80,80,.45)",
+            background: "rgba(0,0,0,.88)",
+            color: "#fff",
+            font: "13px/1.5 system-ui,-apple-system",
+            backdropFilter: "blur(10px)",
+          }}
+        />
+        <script dangerouslySetInnerHTML={{__html: `
+(function(){
+  function show(msg){
+    try{
+      var el=document.getElementById('__early_error');
+      if(!el) return;
+      el.style.display='block';
+      el.innerHTML =
+        '<div style="letter-spacing:.22em;font-size:11px;color:rgba(255,190,190,.9)">EARLY RUNTIME ERROR</div>' +
+        '<div style="margin-top:8px;font-weight:700">Client crashed before React mounted.</div>' +
+        '<div style="margin-top:8px;color:rgba(255,255,255,.8);word-break:break-word">' + msg + '</div>' +
+        '<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.55)">Copy this message and send it here.</div>';
+    }catch(e){}
+  }
+  window.addEventListener('error', function(e){
+    var msg = (e && (e.message || (e.error && e.error.message))) || 'Unknown error';
+    show(msg);
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    var r = e && e.reason;
+    var msg = (r && (r.message || String(r))) || 'Unhandled promise rejection';
+    show(msg);
+  });
+})();
+`}} />
         {children}
       </body>
     </html>
