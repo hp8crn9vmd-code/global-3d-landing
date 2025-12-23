@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import RuntimeGuard from "@/components/RuntimeGuard";
 
 const geistSans = Geist({
@@ -28,6 +29,34 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Script
+          id="early-crash-screen"
+          strategy="beforeInteractive"
+        >{`
+(function(){
+  function show(msg){
+    try{
+      var el=document.getElementById('__early_error');
+      if(!el) return;
+      el.style.display='block';
+      el.innerHTML =
+        '<div style="letter-spacing:.22em;font-size:11px;color:rgba(255,190,190,.9)">EARLY RUNTIME ERROR</div>' +
+        '<div style="margin-top:8px;font-weight:700">Client crashed before React mounted.</div>' +
+        '<div style="margin-top:8px;color:rgba(255,255,255,.8);word-break:break-word">' + msg + '</div>' +
+        '<div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.55)">Copy this message and send it here.</div>';
+    }catch(e){}
+  }
+  window.addEventListener('error', function(e){
+    var msg = (e && (e.message || (e.error && e.error.message))) || 'Unknown error';
+    show(msg);
+  });
+  window.addEventListener('unhandledrejection', function(e){
+    var r = e && e.reason;
+    var msg = (r && (r.message || String(r))) || 'Unhandled promise rejection';
+    show(msg);
+  });
+})();
+        `}</Script>
         <RuntimeGuard />
         <div
           id="__early_error"
