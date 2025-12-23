@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { COPY } from "@/content/copy";
 
 const SceneMount = dynamic(() => import("@/components/SceneMount"), { ssr: false });
 const LazyScene = dynamic(() => import("@/components/LazyScene"), { ssr: false });
@@ -18,7 +19,7 @@ export default function HomeClient() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
             <div className="h-2 w-2 rounded-full bg-white/90" />
-            <span className="text-sm font-medium tracking-wide">GLOBAL•3D</span>
+            <span className="text-sm font-medium tracking-wide">{COPY.brand.name}</span>
           </div>
 
           <nav className="hidden items-center gap-8 text-sm text-white/70 md:flex">
@@ -31,7 +32,7 @@ export default function HomeClient() {
             href="#contact"
             className="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:opacity-90"
           >
-            Request a demo
+            {COPY.contact.primaryCta}
           </a>
         </div>
       </header>
@@ -41,14 +42,13 @@ export default function HomeClient() {
         <div className="pointer-events-none absolute inset-0 hero-grid-overlay" />
         <div className="mx-auto max-w-6xl px-6 pt-24 pb-16">
           <p className="text-xs tracking-[0.28em] text-white/70">
-            GLOBAL 3D LANDING • ENGINEERED DESIGN
+            {COPY.hero.eyebrow}
           </p>
           <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-6xl">
-            A single-page 3D experience built for global brands.
+            {COPY.hero.headline}
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-7 text-white/70 md:text-lg">
-            Three distinct 3D narratives — AETHER CORE, NEXUS ENGINE, ORBITAL CHAMBER —
-            unified in one precise, performance-first landing.
+            {COPY.hero.subheadline}
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
@@ -56,13 +56,13 @@ export default function HomeClient() {
               href="#nexus"
               className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:opacity-90"
             >
-              Explore the 3D system
+              {COPY.hero.primaryCta}
             </a>
             <a
               href="#orbital"
               className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/90 transition hover:border-white/40"
             >
-              See architecture
+              {COPY.hero.secondaryCta}
             </a>
           </div>
         </div>
@@ -75,16 +75,71 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* SECTION 2: NEXUS ENGINE */}
+      
+      {/* OUTCOMES + SOCIAL PROOF */}
+      <section className="relative border-b border-white/10">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+          <div className="grid gap-12 md:grid-cols-2 md:items-start">
+            {/* Outcomes */}
+            <div>
+              <p className="text-xs tracking-[0.28em] text-white/70">OUTCOMES</p>
+              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
+                {COPY.outcomes.title}
+              </h2>
+
+              <div className="mt-8 grid gap-4">
+                {COPY.outcomes.items.map((it) => (
+                  <div key={it.title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                    <p className="text-base font-semibold">{it.title}</p>
+                    <p className="mt-2 text-sm text-white/70 leading-6">{it.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Social proof */}
+            <div className="rounded-2xl border border-white/10 bg-black/30 p-7">
+              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.socialProof.eyebrow}</p>
+              <div className="mt-4 grid gap-4">
+                {COPY.socialProof.metrics.map((m) => (
+                  <div key={m.label} className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-5 py-4">
+                    <p className="text-sm text-white/70">{m.label}</p>
+                    <p className="text-sm font-semibold">{m.value}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-5 text-sm text-white/60 leading-6">
+                {COPY.socialProof.note}
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#nexus"
+                  className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black hover:opacity-90"
+                >
+                  {COPY.hero.primaryCta}
+                </a>
+                <a
+                  href="#orbital"
+                  className="rounded-full border border-white/20 px-5 py-2.5 text-sm font-medium text-white/90 hover:border-white/40"
+                >
+                  {COPY.hero.secondaryCta}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+{/* SECTION 2: NEXUS ENGINE */}
       <section id="nexus" className="relative overflow-hidden border-b border-white/10">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="grid gap-10 md:grid-cols-2 md:items-center">
             <div>
-              <p className="text-xs tracking-[0.28em] text-white/70">SECTION 02</p>
-              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">NEXUS ENGINE</h2>
+              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.nexus.eyebrow}</p>
+              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{COPY.nexus.title}</h2>
               <p className="mt-4 text-white/70 leading-7">
-                Product-like geometry, disciplined lighting, and subtle interaction —
-                engineered to communicate strength and reliability.
+                {COPY.nexus.body}
               </p>
             </div>
 
@@ -99,18 +154,17 @@ export default function HomeClient() {
       </section>
 
 
-      {/* LIBRARIES STACK */}
+      {/* {COPY.libraries.eyebrow} */}
       <section className="relative overflow-hidden border-b border-white/10">
         <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
           <div className="flex flex-col gap-10">
             <div>
-              <p className="text-xs tracking-[0.28em] text-white/70">LIBRARIES STACK</p>
+              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.libraries.eyebrow}</p>
               <h2 className="mt-4 text-3xl font-semibold md:text-4xl">
-                Modern 2D + 3D libraries, reflected in real UI & real rendering.
+                {COPY.libraries.title}
               </h2>
               <p className="mt-4 max-w-3xl text-white/70 leading-7">
-                This landing is not a “list of tools”. It demonstrates practical rendering decisions:
-                lighting, materials, color management, lazy scene mounting, and performance discipline.
+                {COPY.libraries.body}
               </p>
             </div>
 
@@ -118,48 +172,47 @@ export default function HomeClient() {
               {/* 3D */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold">3D Stack</h3>
+                  <h3 className="text-xl font-semibold">{COPY.libraries.threeD.title}</h3>
                   <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
-                    WebGL • PBR • Tone Mapping
+                    {COPY.libraries.threeD.chips.join(" • ")}
                   </span>
                 </div>
 
                 <div className="mt-6 grid gap-4">
                   <div className="rounded-xl border border-white/10 bg-black/30 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">Three.js</p>
+                      <p className="font-medium">{COPY.libraries.threeD.cards[0].name}</p>
                       <span className="text-xs text-white/60">Core renderer</span>
                     </div>
                     <p className="mt-2 text-sm text-white/70 leading-6">
-                      Low-level control over cameras, lights, materials, and render pipeline.
+                      {COPY.libraries.threeD.cards[0].note}
                     </p>
                   </div>
 
                   <div className="rounded-xl border border-white/10 bg-black/30 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">React Three Fiber</p>
+                      <p className="font-medium">{COPY.libraries.threeD.cards[1].name}</p>
                       <span className="text-xs text-white/60">Declarative scene graph</span>
                     </div>
                     <p className="mt-2 text-sm text-white/70 leading-6">
-                      React-first workflow for reliable composition, state-driven scenes, and maintainability.
+                      {COPY.libraries.threeD.cards[1].note}
                     </p>
                   </div>
 
                   <div className="rounded-xl border border-white/10 bg-black/30 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">@react-three/drei</p>
+                      <p className="font-medium">{COPY.libraries.threeD.cards[2].name}</p>
                       <span className="text-xs text-white/60">Production helpers</span>
                     </div>
                     <p className="mt-2 text-sm text-white/70 leading-6">
-                      Environment lighting, shadows, materials, and utilities used for real-world polish.
+                      {COPY.libraries.threeD.cards[2].note}
                     </p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 pt-2 text-xs text-white/60">
-                    <span className="rounded-full border border-white/10 px-3 py-1">ACES tone mapping</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">sRGB output</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">Lazy-mount scenes</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">Soft shadows</span>
+                    {COPY.libraries.twoD.tags.map((t) => (
+                      <span key={t} className="rounded-full border border-white/10 px-3 py-1">{t}</span>
+                    ))}
                   </div>
 
                   <div className="pt-3">
@@ -176,48 +229,47 @@ export default function HomeClient() {
               {/* 2D */}
               <div className="rounded-2xl border border-white/10 bg-white/5 p-7">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-semibold">2D Stack</h3>
+                  <h3 className="text-xl font-semibold">{COPY.libraries.twoD.title}</h3>
                   <span className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
-                    Canvas • WebGL • Motion UI
+                    {COPY.libraries.twoD.chips.join(" • ")}
                   </span>
                 </div>
 
                 <div className="mt-6 grid gap-4">
                   <div className="rounded-xl border border-white/10 bg-black/30 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">PixiJS</p>
+                      <p className="font-medium">{COPY.libraries.twoD.cards[0].name}</p>
                       <span className="text-xs text-white/60">2D WebGL renderer</span>
                     </div>
                     <p className="mt-2 text-sm text-white/70 leading-6">
-                      High-performance 2D rendering for interactive UI overlays, particles, and effects.
+                      {COPY.libraries.twoD.cards[0].note}
                     </p>
                   </div>
 
                   <div className="rounded-xl border border-white/10 bg-black/30 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">Phaser</p>
+                      <p className="font-medium">{COPY.libraries.twoD.cards[1].name}</p>
                       <span className="text-xs text-white/60">2D game framework</span>
                     </div>
                     <p className="mt-2 text-sm text-white/70 leading-6">
-                      Scene systems, input, and timing — useful for mini-interactions & gamified sections.
+                      {COPY.libraries.twoD.cards[1].note}
                     </p>
                   </div>
 
                   <div className="rounded-xl border border-white/10 bg-black/30 p-5">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium">Canvas API</p>
+                      <p className="font-medium">{COPY.libraries.twoD.cards[2].name}</p>
                       <span className="text-xs text-white/60">Native drawing</span>
                     </div>
                     <p className="mt-2 text-sm text-white/70 leading-6">
-                      Lightweight 2D primitives for charts, HUD layers, and controlled micro-animations.
+                      {COPY.libraries.twoD.cards[2].note}
                     </p>
                   </div>
 
                   <div className="flex flex-wrap gap-2 pt-2 text-xs text-white/60">
-                    <span className="rounded-full border border-white/10 px-3 py-1">HUD overlays</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">Particles</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">Interactive states</span>
-                    <span className="rounded-full border border-white/10 px-3 py-1">Low CPU cost</span>
+                    {COPY.libraries.threeD.tags.map((t) => (
+                      <span key={t} className="rounded-full border border-white/10 px-3 py-1">{t}</span>
+                    ))}
                   </div>
 
                   <div className="pt-3">
@@ -271,11 +323,10 @@ export default function HomeClient() {
             </div>
 
             <div className="order-1 md:order-2">
-              <p className="text-xs tracking-[0.28em] text-white/70">SECTION 03</p>
-              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">ORBITAL CHAMBER</h2>
+              <p className="text-xs tracking-[0.28em] text-white/70">{COPY.orbital.eyebrow}</p>
+              <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{COPY.orbital.title}</h2>
               <p className="mt-4 text-white/70 leading-7">
-                Spatial composition with cinematic restraint — architectural depth that
-                signals enterprise-grade design.
+                {COPY.orbital.body}
               </p>
               <div className="mt-8 flex flex-wrap gap-3 text-sm text-white/70">
                 <span className="rounded-full border border-white/15 px-4 py-2">Performance-first</span>
@@ -285,20 +336,36 @@ export default function HomeClient() {
             </div>
           </div>
 
-          <div id="contact" className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8">
-            <h3 className="text-xl font-semibold">Contact</h3>
+          
+      {/* TECHNICAL DECISIONS */}
+      <section className="relative border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-6 py-20 md:py-24">
+          <p className="text-xs tracking-[0.28em] text-white/70">{COPY.technical.eyebrow}</p>
+          <h2 className="mt-4 text-3xl font-semibold md:text-4xl">{COPY.technical.title}</h2>
+
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
+            {COPY.technical.bullets.map((b, i) => (
+              <div key={i} className="rounded-2xl border border-white/10 bg-white/5 p-6">
+                <p className="text-sm text-white/70 leading-6">{b}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+<div id="contact" className="mt-16 rounded-2xl border border-white/10 bg-white/5 p-8">
+            <h3 className="text-xl font-semibold">{COPY.contact.title}</h3>
             <p className="mt-3 max-w-2xl text-white/70 leading-7">
-              A global-grade 3D landing, built with discipline: performance, clarity, and craft.
-              Replace this block with your real form or endpoint.
+              {COPY.contact.body}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:opacity-90" href="#nexus">View sections</a>
+              <a className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:opacity-90" href="#nexus">{COPY.contact.secondaryCta}</a>
               <a className="rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white/90 hover:border-white/40" href="#orbital">View chamber</a>
             </div>
           </div>
 
           <footer className="mt-10 border-t border-white/10 pt-8 text-sm text-white/50">
-            © {new Date().getFullYear()} Global 3D Landing. All rights reserved.
+            © {new Date().getFullYear()} {COPY.brand.name.replace('•',' ')}. All rights reserved.
           </footer>
         </div>
       </section>
