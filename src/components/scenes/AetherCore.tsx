@@ -1,9 +1,15 @@
 "use client";
 
-import { Float, MeshTransmissionMaterial } from "@react-three/drei";
+import {
+  AccumulativeShadows,
+  Environment,
+  Float,
+  MeshTransmissionMaterial,
+  RandomizedLight,
+} from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
-import type { Mesh, Group } from "three";
+import type { Group, Mesh } from "three";
 
 function Core() {
   const group = useRef<Group>(null);
@@ -17,31 +23,31 @@ function Core() {
 
   return (
     <group ref={group} position={[0, 0.1, 0]}>
-      <Float speed={1.15} rotationIntensity={0.6} floatIntensity={0.8}>
-        {/* Inner core */}
-        <mesh>
-          <icosahedronGeometry args={[0.95, 3]} />
+      <Float speed={1.05} rotationIntensity={0.55} floatIntensity={0.75}>
+        {/* Inner core (metal) */}
+        <mesh castShadow>
+          <icosahedronGeometry args={[0.95, 4]} />
           <meshStandardMaterial
-            color="#ffffff"
-            roughness={0.2}
-            metalness={0.85}
-            emissive="#0a0a0a"
+            color="#f5f5f5"
+            roughness={0.18}
+            metalness={0.9}
+            envMapIntensity={1.0}
           />
         </mesh>
 
         {/* Glass shell */}
-        <mesh ref={shell} scale={1.25}>
-          <icosahedronGeometry args={[1.0, 2]} />
+        <mesh ref={shell} scale={1.26} castShadow>
+          <icosahedronGeometry args={[1.0, 3]} />
           <MeshTransmissionMaterial
-            thickness={0.6}
-            roughness={0.15}
+            thickness={0.8}
+            roughness={0.12}
             transmission={1}
-            ior={1.4}
-            chromaticAberration={0.03}
-            anisotropy={0.2}
-            distortion={0.15}
-            distortionScale={0.25}
-            temporalDistortion={0.06}
+            ior={1.45}
+            chromaticAberration={0.035}
+            anisotropy={0.25}
+            distortion={0.18}
+            distortionScale={0.28}
+            temporalDistortion={0.08}
           />
         </mesh>
       </Float>
@@ -52,15 +58,30 @@ function Core() {
 export default function AetherCore() {
   return (
     <>
-      {/* Lighting: disciplined, premium */}
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[3, 5, 2]} intensity={1.2} />
-      <directionalLight position={[-4, -2, -2]} intensity={0.35} />
+      {/* Cinematic environment for reflections */}
+      <Environment preset="city" />
 
-      {/* Back plate glow (subtle) */}
-      <mesh position={[0, 0, -3.5]}>
+      {/* Controlled lighting */}
+      <ambientLight intensity={0.15} />
+      <directionalLight position={[4, 6, 3]} intensity={1.15} />
+      <directionalLight position={[-4, 2, -2]} intensity={0.25} />
+
+      {/* Soft cinematic shadows */}
+      <AccumulativeShadows
+        temporal
+        frames={40}
+        alphaTest={0.85}
+        opacity={0.55}
+        scale={12}
+        position={[0, -1.05, 0]}
+      >
+        <RandomizedLight amount={6} radius={8} ambient={0.5} intensity={0.75} position={[5, 8, -4]} />
+      </AccumulativeShadows>
+
+      {/* Back plate to deepen contrast */}
+      <mesh position={[0, 0, -3.6]}>
         <planeGeometry args={[20, 12]} />
-        <meshStandardMaterial color="#0b0b0b" roughness={1} metalness={0} />
+        <meshStandardMaterial color="#070708" roughness={1} metalness={0} />
       </mesh>
 
       <Core />
